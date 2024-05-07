@@ -2,6 +2,11 @@ package ru.merkel.examinerservice.services.impl;
 
 import ru.merkel.examinerservice.models.Question;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class ConstantsForTests {
     public static final String QUESTION_1 = "Зачем придумали язык Java?";
     public static final String QUESTION_2 = "Что значит, что JAVA компилируемый язык?";
@@ -29,5 +34,5 @@ public class ConstantsForTests {
     public static final Question OBJECT_QUESTION_6 = new Question(QUESTION_6, ANSWER_6);
     public static final Question OBJECT_QUESTION_7 = new Question(QUESTION_7, ANSWER_7);
     public static final Question OBJECT_QUESTION_8 = new Question(QUESTION_8, ANSWER_8);
-
+    public static final List<Question> QUESTIONS = List.of(OBJECT_QUESTION_1, OBJECT_QUESTION_2, OBJECT_QUESTION_3, OBJECT_QUESTION_4, OBJECT_QUESTION_5, OBJECT_QUESTION_6, OBJECT_QUESTION_7, OBJECT_QUESTION_8);
 }

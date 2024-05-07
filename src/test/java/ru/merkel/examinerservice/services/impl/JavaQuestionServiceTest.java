@@ -11,6 +11,7 @@ import ru.merkel.examinerservice.services.QuestionService;
 import java.util.Collection;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.merkel.examinerservice.services.impl.ConstantsForTests.*;
@@ -49,17 +50,16 @@ class JavaQuestionServiceTest {
 
     @Test
     void shouldReturnRandomQuestion() {
-        Question expected = new Question(QUESTION_9, ANSWER_9);
         Question actual = javaQuestionService.getRandomQuestion();
-        assertEquals(expected.getClass(), actual.getClass());
+        assertThat(QUESTIONS, hasItems(actual));
     }
 
     @Test
     void shouldReturnRemovedQuestion() {
         Question expected = new Question(QUESTION_1, ANSWER_1);
-        Question actual = javaQuestionService.remove(new Question(QUESTION_1, ANSWER_1));
+        Question actual = javaQuestionService.remove(OBJECT_QUESTION_1);
         assertEquals(expected, actual);
-        assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.remove(new Question(QUESTION_1, ANSWER_1)));
+        assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.remove(OBJECT_QUESTION_1));
     }
 
     @Test
