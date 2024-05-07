@@ -35,13 +35,15 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question remove(Question question) {
         Iterator<Question> i = questions.iterator();
+        Question next;
         while (i.hasNext()) {
-            if (i.next().getQuestion().equals(question.getQuestion())) {
+            next = i.next();
+            if (next.getQuestion().equals(question.getQuestion()) && next.getAnswer().equals(question.getAnswer())) {
                 i.remove();
                 return question;
             }
         }
-        throw new QuestionNotFoundException("Такой сотрудник не найден");
+        throw new QuestionNotFoundException("Такой вопрос не найден");
     }
 
     @Override

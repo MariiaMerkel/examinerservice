@@ -5,5 +5,5 @@ import ru.merkel.examinerservice.models.Question;
 import java.util.Collection;
 
 public interface ExaminerService {
-    Collection<Question> getQuestions();
+    Collection<Question> getQuestions(int amount);
 }
