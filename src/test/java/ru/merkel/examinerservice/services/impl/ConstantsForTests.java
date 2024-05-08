@@ -2,10 +2,7 @@ package ru.merkel.examinerservice.services.impl;
 
 import ru.merkel.examinerservice.models.Question;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ConstantsForTests {
     public static final String QUESTION_1 = "Зачем придумали язык Java?";

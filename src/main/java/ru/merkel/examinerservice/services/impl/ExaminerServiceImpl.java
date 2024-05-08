@@ -8,12 +8,9 @@ import ru.merkel.examinerservice.services.QuestionService;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Random;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
-
-    private Random random = new Random();
     private QuestionService questionService;
 
     public ExaminerServiceImpl(JavaQuestionService questionService) {

@@ -34,7 +34,7 @@ class ExaminerServiceImplTest {
     }
 
     @Test
-    public void shouldReturnNotFoundException() {
+    void shouldReturnNotFoundException() {
         assertThrows(QuestionNotFoundException.class, () -> examinerService.getQuestions(2));
     }
 }
