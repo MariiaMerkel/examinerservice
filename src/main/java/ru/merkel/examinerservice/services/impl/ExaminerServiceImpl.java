@@ -1,7 +1,7 @@
 package ru.merkel.examinerservice.services.impl;
 
 import org.springframework.stereotype.Service;
-import ru.merkel.examinerservice.exceptions.ShortageOfQuestionsException;
+import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.services.ExaminerService;
 import ru.merkel.examinerservice.services.QuestionService;
@@ -30,7 +30,7 @@ public class ExaminerServiceImpl implements ExaminerService {
             }
             return questions;
         } else {
-            throw new ShortageOfQuestionsException("В списке недостаточно вопросов, чтобы заполнить экзаменационный билет необходимым количеством уникальных вопросов");
+            throw new QuestionNotFoundException("В списке недостаточно вопросов, чтобы заполнить экзаменационный билет необходимым количеством уникальных вопросов");
         }
     }
 }

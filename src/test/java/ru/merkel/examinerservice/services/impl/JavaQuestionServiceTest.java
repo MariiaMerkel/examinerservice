@@ -55,6 +55,12 @@ class JavaQuestionServiceTest {
     }
 
     @Test
+    void shouldThrowNotFoundException() {
+        javaQuestionService.removeAll();
+        assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.getRandomQuestion());
+    }
+
+    @Test
     void shouldReturnRemovedQuestion() {
         Question expected = new Question(QUESTION_1, ANSWER_1);
         Question actual = javaQuestionService.remove(OBJECT_QUESTION_1);

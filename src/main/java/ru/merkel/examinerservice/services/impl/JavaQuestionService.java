@@ -47,6 +47,11 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
+    public void removeAll() {
+        questions.clear();
+    }
+
+    @Override
     public Collection<Question> getAll() {
         return Collections.unmodifiableCollection(questions);
     }
@@ -54,12 +59,10 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         Random random = new Random();
-        int count = random.nextInt(questions.size() + 1);
-        for (; count > 0; count--) {
-            if (count == 1) {
-                return questions.iterator().next();
-            }
+        if (!questions.isEmpty()) {
+            List<Question> questionList = new ArrayList<>(questions);
+            return questionList.get(random.nextInt(questions.size()));
         }
-        throw new RuntimeException("Что-то пошло не иак");
+        throw new QuestionNotFoundException("В списке нет ни одного вопроса");
     }
 }

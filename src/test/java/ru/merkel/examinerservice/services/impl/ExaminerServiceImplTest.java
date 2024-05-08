@@ -5,7 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.merkel.examinerservice.exceptions.ShortageOfQuestionsException;
+import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
 
 import java.util.Collection;
@@ -26,11 +26,15 @@ class ExaminerServiceImplTest {
     private ExaminerServiceImpl examinerService;
 
     @Test
-    void getQuestions() {
+    void getQuestionsTest() {
         when(javaQuestionService.getAll()).thenReturn(QUESTIONS);
         when(javaQuestionService.getRandomQuestion()).thenReturn(OBJECT_QUESTION_1, OBJECT_QUESTION_3, OBJECT_QUESTION_5);
         Collection<Question> actual = examinerService.getQuestions(3);
         assertThat(actual, hasItems(OBJECT_QUESTION_1, OBJECT_QUESTION_3, OBJECT_QUESTION_5));
-        assertThrows(ShortageOfQuestionsException.class, () -> examinerService.getQuestions(9));
+    }
+
+    @Test
+    public void shouldReturnNotFoundException() {
+        assertThrows(QuestionNotFoundException.class, () -> examinerService.getQuestions(2));
     }
 }
