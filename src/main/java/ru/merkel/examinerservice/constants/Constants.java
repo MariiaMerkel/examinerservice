@@ -1,10 +1,10 @@
-package ru.merkel.examinerservice.services.impl;
+package ru.merkel.examinerservice.constants;
 
 import ru.merkel.examinerservice.models.Question;
 
 import java.util.List;
 
-public class ConstantsForTests {
+public class Constants {
     public static final String QUESTION_1 = "Зачем придумали язык Java?";
     public static final String QUESTION_2 = "Что значит, что JAVA компилируемый язык?";
     public static final String QUESTION_3 = "Что такое JVM?";

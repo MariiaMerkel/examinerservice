@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import ru.merkel.examinerservice.exceptions.QuestionAlreadyAddedException;
 import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
+import ru.merkel.examinerservice.repositiories.impl.JavaQuestionRepository;
 import ru.merkel.examinerservice.services.QuestionService;
 
 import java.util.Collection;
@@ -18,7 +19,7 @@ import static ru.merkel.examinerservice.services.impl.ConstantsForTests.*;
 
 class JavaQuestionServiceTest {
 
-    public QuestionService javaQuestionService = new JavaQuestionService();
+    public QuestionService javaQuestionService = new JavaQuestionService(new JavaQuestionRepository());
 
     @BeforeEach
     public void setUp() {
@@ -51,7 +52,7 @@ class JavaQuestionServiceTest {
     @Test
     void shouldReturnRandomQuestion() {
         Question actual = javaQuestionService.getRandomQuestion();
-        assertThat(QUESTIONS, hasItems(actual));
+        assertThat(JAVA_QUESTIONS, hasItems(actual));
     }
 
     @Test

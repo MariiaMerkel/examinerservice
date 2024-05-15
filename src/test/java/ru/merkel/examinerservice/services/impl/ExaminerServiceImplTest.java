@@ -21,7 +21,8 @@ class ExaminerServiceImplTest {
 
     @Mock
     private JavaQuestionService javaQuestionService;
-
+    @Mock
+    private MathQuestionService mathQuestionService;
     @InjectMocks
     private ExaminerServiceImpl examinerService;
 
@@ -29,6 +30,7 @@ class ExaminerServiceImplTest {
     void getQuestionsTest() {
         when(javaQuestionService.getAll()).thenReturn(QUESTIONS);
         when(javaQuestionService.getRandomQuestion()).thenReturn(OBJECT_QUESTION_1, OBJECT_QUESTION_3, OBJECT_QUESTION_5);
+        when(mathQuestionService.getAll()).thenReturn(QUESTIONS);
         Collection<Question> actual = examinerService.getQuestions(3);
         assertThat(actual, hasItems(OBJECT_QUESTION_1, OBJECT_QUESTION_3, OBJECT_QUESTION_5));
     }

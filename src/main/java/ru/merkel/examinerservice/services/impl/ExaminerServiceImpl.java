@@ -1,5 +1,6 @@
 package ru.merkel.examinerservice.services.impl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
@@ -11,19 +12,23 @@ import java.util.HashSet;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
-    private QuestionService questionService;
+    private final QuestionService javaQuestionService;
+    private final QuestionService mathQuestionService;
 
-    public ExaminerServiceImpl(JavaQuestionService questionService) {
-        this.questionService = questionService;
+    public ExaminerServiceImpl(@Qualifier("javaQuestionService") JavaQuestionService javaQuestionService,
+                               @Qualifier("mathQuestionService") MathQuestionService mathQuestionService) {
+        this.javaQuestionService = javaQuestionService;
+        this.mathQuestionService = mathQuestionService;
     }
 
     @Override
     public Collection<Question> getQuestions(int amount) {
 
-        if (amount <= questionService.getAll().size()) {
+        if (amount <= (javaQuestionService.getAll().size() + mathQuestionService.getAll().size())) {
             Collection<Question> questions = new HashSet<>();
             while (amount != questions.size()) {
-                questions.add(questionService.getRandomQuestion());
+                questions.add(javaQuestionService.getRandomQuestion());
+                questions.add(mathQuestionService.getRandomQuestion());
             }
             return questions;
         } else {
