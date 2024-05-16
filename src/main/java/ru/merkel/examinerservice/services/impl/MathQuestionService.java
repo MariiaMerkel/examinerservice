@@ -2,14 +2,15 @@ package ru.merkel.examinerservice.services.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.merkel.examinerservice.exceptions.QuestionAlreadyAddedException;
 import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.repositiories.QuestionRepository;
-import ru.merkel.examinerservice.repositiories.impl.MathQuestionRepository;
 import ru.merkel.examinerservice.services.QuestionService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 @Service
 public class MathQuestionService implements QuestionService {

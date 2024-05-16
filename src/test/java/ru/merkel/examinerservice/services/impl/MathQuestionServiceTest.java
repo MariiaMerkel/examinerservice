@@ -1,7 +1,6 @@
 package ru.merkel.examinerservice.services.impl;
 
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,7 +10,6 @@ import ru.merkel.examinerservice.exceptions.QuestionAlreadyAddedException;
 import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.repositiories.impl.MathQuestionRepository;
-import ru.merkel.examinerservice.services.QuestionService;
 
 import java.util.Collection;
 import java.util.HashSet;
