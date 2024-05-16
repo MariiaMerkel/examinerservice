@@ -1,5 +1,6 @@
 package ru.merkel.examinerservice.services.impl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
@@ -16,8 +17,8 @@ public class JavaQuestionService implements QuestionService {
 
     private final QuestionRepository javaQuestionRepository;
 
-    public JavaQuestionService(JavaQuestionRepository javaQuestionRepository) {
-        this.javaQuestionRepository = javaQuestionRepository;
+    public JavaQuestionService(@Qualifier("javaQuestionRepository") QuestionRepository questionRepository) {
+        this.javaQuestionRepository = questionRepository;
     }
 
     @Override

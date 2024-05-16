@@ -14,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.mockito.Mockito.when;
-import static ru.merkel.examinerservice.services.impl.ConstantsForTests.*;
+import static ru.merkel.examinerservice.constants.JavaQuestionsConstants.*;
+import static ru.merkel.examinerservice.constants.MathQuestionsConstants.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExaminerServiceImplTest {
@@ -28,11 +29,12 @@ class ExaminerServiceImplTest {
 
     @Test
     void getQuestionsTest() {
-        when(javaQuestionService.getAll()).thenReturn(QUESTIONS);
-        when(javaQuestionService.getRandomQuestion()).thenReturn(OBJECT_QUESTION_1, OBJECT_QUESTION_3, OBJECT_QUESTION_5);
-        when(mathQuestionService.getAll()).thenReturn(QUESTIONS);
-        Collection<Question> actual = examinerService.getQuestions(3);
-        assertThat(actual, hasItems(OBJECT_QUESTION_1, OBJECT_QUESTION_3, OBJECT_QUESTION_5));
+        when(javaQuestionService.getAll()).thenReturn(JAVA_QUESTIONS);
+        when(javaQuestionService.getRandomQuestion()).thenReturn(JAVA_OBJECT_QUESTION_1, JAVA_OBJECT_QUESTION_3, JAVA_OBJECT_QUESTION_5);
+        when(mathQuestionService.getAll()).thenReturn(MATH_QUESTIONS);
+        when(mathQuestionService.getRandomQuestion()).thenReturn(MATH_OBJECT_QUESTION_3, MATH_OBJECT_QUESTION_1);
+        Collection<Question> actual = examinerService.getQuestions(5);
+        assertThat(actual, hasItems(JAVA_OBJECT_QUESTION_1, JAVA_OBJECT_QUESTION_3, JAVA_OBJECT_QUESTION_5, MATH_OBJECT_QUESTION_3, MATH_OBJECT_QUESTION_1));
     }
 
     @Test

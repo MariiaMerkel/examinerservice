@@ -8,7 +8,7 @@ import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.repositiories.QuestionRepository;
 
-import static ru.merkel.examinerservice.constants.Constants.*;
+import static ru.merkel.examinerservice.constants.JavaQuestionsConstants.*;
 
 @Repository
 public class JavaQuestionRepository implements QuestionRepository {
@@ -50,13 +50,13 @@ public class JavaQuestionRepository implements QuestionRepository {
 
     @PostConstruct
     public void init() {
-        questions.add(OBJECT_QUESTION_1);
-        questions.add(OBJECT_QUESTION_2);
-        questions.add(OBJECT_QUESTION_3);
-        questions.add(OBJECT_QUESTION_4);
-        questions.add(OBJECT_QUESTION_5);
-        questions.add(OBJECT_QUESTION_6);
-        questions.add(OBJECT_QUESTION_7);
-        questions.add(OBJECT_QUESTION_8);
+        questions.add(JAVA_OBJECT_QUESTION_1);
+        questions.add(JAVA_OBJECT_QUESTION_2);
+        questions.add(JAVA_OBJECT_QUESTION_3);
+        questions.add(JAVA_OBJECT_QUESTION_4);
+        questions.add(JAVA_OBJECT_QUESTION_5);
+        questions.add(JAVA_OBJECT_QUESTION_6);
+        questions.add(JAVA_OBJECT_QUESTION_7);
+        questions.add(JAVA_OBJECT_QUESTION_8);
     }
 }

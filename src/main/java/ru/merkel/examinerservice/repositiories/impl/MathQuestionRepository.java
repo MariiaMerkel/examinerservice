@@ -1,12 +1,14 @@
 package ru.merkel.examinerservice.repositiories.impl;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
-import ru.merkel.examinerservice.exceptions.QuestionAlreadyAddedException;
-import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
+import ru.merkel.examinerservice.exceptions.*;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.repositiories.QuestionRepository;
 
 import java.util.*;
+
+import static ru.merkel.examinerservice.constants.MathQuestionsConstants.*;
 
 @Repository
 public class MathQuestionRepository implements QuestionRepository {
@@ -44,5 +46,14 @@ public class MathQuestionRepository implements QuestionRepository {
     @Override
     public Collection<Question> getAll() {
         return Collections.unmodifiableCollection(questions);
+    }
+
+    @PostConstruct
+    public void init() {
+        questions.add(MATH_OBJECT_QUESTION_1);
+        questions.add(MATH_OBJECT_QUESTION_2);
+        questions.add(MATH_OBJECT_QUESTION_3);
+        questions.add(MATH_OBJECT_QUESTION_4);
+        questions.add(MATH_OBJECT_QUESTION_5);
     }
 }
