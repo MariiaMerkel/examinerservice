@@ -17,7 +17,7 @@ public class MathQuestionService implements QuestionService {
     private final Random random = new Random();
     private final QuestionRepository mathQuestionRepository;
 
-    public MathQuestionService(@Qualifier("javaQuestionRepository") QuestionRepository questionRepository) {
+    public MathQuestionService(@Qualifier("mathQuestionRepository") QuestionRepository questionRepository) {
         this.mathQuestionRepository = questionRepository;
     }
 
