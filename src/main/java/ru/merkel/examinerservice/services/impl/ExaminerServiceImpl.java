@@ -23,20 +23,13 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public Collection<Question> getQuestions(int amount) {
-        int j = javaQuestionService.getAll().size();
-        int m = mathQuestionService.getAll().size();
-
-        if (amount <= (javaQuestionService.getAll().size() + mathQuestionService.getAll().size())) {
-            Collection<Question> questions = new HashSet<>();
-            while (amount != questions.size()) {
-                questions.add(javaQuestionService.getRandomQuestion());
-                if (amount != questions.size()) {
-                    questions.add(mathQuestionService.getRandomQuestion());
-                }
+        Collection<Question> questions = new HashSet<>();
+        while (amount != questions.size()) {
+            questions.add(javaQuestionService.getRandomQuestion());
+            if (amount != questions.size()) {
+                questions.add(mathQuestionService.getRandomQuestion());
             }
-            return questions;
-        } else {
-            throw new QuestionNotFoundException("В списке недостаточно вопросов, чтобы заполнить экзаменационный билет необходимым количеством уникальных вопросов");
         }
+        return questions;
     }
 }

@@ -1,11 +1,13 @@
 package ru.merkel.examinerservice.services;
 
+import org.springframework.web.server.MethodNotAllowedException;
 import ru.merkel.examinerservice.models.Question;
 
 import java.util.Collection;
+import java.util.Scanner;
 
 public interface QuestionService {
-    Question add(String question, String answer);
+    Question add(String question, String answer) throws MethodNotAllowedException;
 
     Question add(Question question);
 
@@ -16,5 +18,4 @@ public interface QuestionService {
     Collection<Question> getAll();
 
     Question getRandomQuestion();
-
 }
