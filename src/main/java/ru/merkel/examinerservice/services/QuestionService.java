@@ -13,7 +13,7 @@ public interface QuestionService {
 
     Question remove(Question question);
 
-    void removeAll();
+    Collection<Question> removeAll();
 
     Collection<Question> getAll();
 

@@ -15,7 +15,11 @@ import static ru.merkel.examinerservice.constants.JavaQuestionsConstants.*;
 @Repository
 public class JavaQuestionRepository implements QuestionRepository {
 
-    private final Set<Question> questions = new HashSet<>();
+    private final Set<Question> questions;
+
+    public JavaQuestionRepository() {
+        this.questions = new HashSet<>();
+    }
 
     @Override
     public Question add(Question question) {
@@ -42,7 +46,8 @@ public class JavaQuestionRepository implements QuestionRepository {
 
     @Override
     public void removeAll() {
-        questions.clear();
+        System.out.println("Вызван метод JavaQuestionRepository.removeAll(). Список вопросов про Java пуст");
+        getQuestions().clear();
     }
 
     @Override
@@ -60,5 +65,9 @@ public class JavaQuestionRepository implements QuestionRepository {
         questions.add(JAVA_OBJECT_QUESTION_6);
         questions.add(JAVA_OBJECT_QUESTION_7);
         questions.add(JAVA_OBJECT_QUESTION_8);
+    }
+
+    public Set<Question> getQuestions() {
+        return questions;
     }
 }

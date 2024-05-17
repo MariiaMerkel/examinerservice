@@ -2,7 +2,6 @@ package ru.merkel.examinerservice.services.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.services.ExaminerService;
 import ru.merkel.examinerservice.services.QuestionService;

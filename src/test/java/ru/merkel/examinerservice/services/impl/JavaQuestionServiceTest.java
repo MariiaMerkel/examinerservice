@@ -16,8 +16,8 @@ import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.when;
 import static ru.merkel.examinerservice.constants.JavaQuestionsConstants.*;
 
@@ -66,6 +66,17 @@ class JavaQuestionServiceTest {
         Question actual = javaQuestionService.remove(JAVA_OBJECT_QUESTION_1);
         assertEquals(JAVA_OBJECT_QUESTION_1, actual);
         assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.remove(JAVA_OBJECT_QUESTION_2));
+    }
+
+    @Test
+    void removeAllTest() {
+        when(javaQuestionRepository.getAll()).thenReturn(JAVA_QUESTIONS);
+        when(javaQuestionRepository.getQuestions()).thenReturn(new HashSet<>(JAVA_QUESTIONS)).thenReturn(new HashSet<>());
+        doCallRealMethod().when(javaQuestionRepository).removeAll();
+
+        javaQuestionService.removeAll();
+
+        assertFalse(javaQuestionService.getAll().isEmpty());
     }
 
     @Test

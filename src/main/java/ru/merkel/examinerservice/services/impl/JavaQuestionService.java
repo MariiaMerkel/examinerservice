@@ -39,8 +39,9 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public void removeAll() {
+    public Collection<Question> removeAll() {
         javaQuestionRepository.removeAll();
+        return javaQuestionRepository.getAll();
     }
 
     @Override
@@ -54,6 +55,6 @@ public class JavaQuestionService implements QuestionService {
             List<Question> questionList = new ArrayList<>(javaQuestionRepository.getAll());
             return questionList.get(random.nextInt(questionList.size()));
         }
-        throw new QuestionNotFoundException("В списке нет ни одного вопроса");
+        throw new QuestionNotFoundException("В списке нет ни одного вопроса по Java");
     }
 }

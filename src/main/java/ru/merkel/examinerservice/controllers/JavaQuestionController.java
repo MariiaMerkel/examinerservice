@@ -26,6 +26,11 @@ public class JavaQuestionController {
         return questionService.remove(new Question(question, answer));
     }
 
+    @GetMapping(path = "/removeAll")
+    public Collection<Question> removeAll() {
+        return questionService.removeAll();
+    }
+
     @GetMapping(path = "/")
     public Collection<Question> getAll() {
         return questionService.getAll();

@@ -5,17 +5,19 @@ import org.springframework.web.server.MethodNotAllowedException;
 import ru.merkel.examinerservice.models.Question;
 import ru.merkel.examinerservice.services.QuestionService;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Random;
 
 @Service
 public class MathQuestionService implements QuestionService {
 
-    private final Random random;
+    private Random random;
 
     public MathQuestionService() {
         this.random = new Random();
     }
+
 
     @Override
     public Question add(String question, String answer) throws MethodNotAllowedException {
@@ -33,7 +35,7 @@ public class MathQuestionService implements QuestionService {
     }
 
     @Override
-    public void removeAll() {
+    public Collection<Question> removeAll() {
         throw new UnsupportedOperationException("Эта функция не поддерживается");
     }
 
@@ -45,40 +47,40 @@ public class MathQuestionService implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         int first = getRandomInt(-10, 11);
-        int last = getRandomInt(-10, 11);
+        int second = getRandomInt(-10, 11);
         int act = getRandomInt(1, 5);
-        StringBuilder question = new StringBuilder();
-        StringBuilder answer = new StringBuilder();
+        Question question = new Question();
         switch (act) {
             case 1:
-                question.append(String.format("%d + %d = ?", first, last));
-                answer.append(String.format("%d + %d = %d", first, last, first + last));
+                question.setQuestion(String.format("%d + %d = ?", first, second));
+                question.setAnswer(String.format("%d + %d = %d", first, second, first + second));
                 break;
             case 2:
-                question.append(String.format("%d - %d = ?", first, last));
-                answer.append(String.format("%d - %d = %d", first, last, first - last));
+                question.setQuestion(String.format("%d - %d = ?", first, second));
+                question.setAnswer(String.format("%d - %d = %d", first, second, first - second));
                 break;
 
             case 3:
-                question.append(String.format("%d * %d = ?", first, last));
-                answer.append(String.format("%d * %d = %d", first, last, first * last));
+                question.setQuestion(String.format("%d * %d = ?", first, second));
+                question.setAnswer(String.format("%d * %d = %d", first, second, first * second));
                 break;
 
             case 4:
-                if (last != 0) {
-                    question.append(String.format("%d / %d = ?", first, last));
-                    answer.append(String.format("%d / %d = %d", first, last, first / last));
-                } else {
-                    last++;
-                    question.append(String.format("%d / %d = ?", first, last));
-                    answer.append(String.format("%d / %d = %d", first, last, first / last));
+                if (second == 0) {
+                    second++;
                 }
+                String result = new DecimalFormat("#.######").format((float) first / second);
+                question.setQuestion(String.format("%d / %d = ?", first, second));
+                question.setAnswer(String.format("%d / %d = %s", first, second, result));
                 break;
         }
-        return new Question(question.toString(), answer.toString());
+        return question;
     }
 
     public int getRandomInt(int origin, int bound) {
+        if (random == null) {
+            random = new Random();
+        }
         return random.nextInt(origin, bound);
     }
 }
