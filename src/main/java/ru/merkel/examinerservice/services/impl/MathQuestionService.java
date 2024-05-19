@@ -18,6 +18,10 @@ public class MathQuestionService implements QuestionService {
         this.random = new Random();
     }
 
+    public MathQuestionService(Random random) {
+        this.random = random;
+    }
+
 
     @Override
     public Question add(String question, String answer) throws MethodNotAllowedException {
