@@ -21,4 +21,9 @@ public class AppExceptionHandler {
     public ResponseEntity handlerShortageOfQuestions(ShortageOfQuestionsException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler
+    public ResponseEntity handlerUnsupportedOperation(UnsupportedOperationException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

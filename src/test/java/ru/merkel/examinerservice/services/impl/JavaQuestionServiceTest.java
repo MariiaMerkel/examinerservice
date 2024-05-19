@@ -1,85 +1,92 @@
 package ru.merkel.examinerservice.services.impl;
 
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.merkel.examinerservice.exceptions.QuestionAlreadyAddedException;
 import ru.merkel.examinerservice.exceptions.QuestionNotFoundException;
 import ru.merkel.examinerservice.models.Question;
-import ru.merkel.examinerservice.services.QuestionService;
+import ru.merkel.examinerservice.repositiories.impl.JavaQuestionRepository;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ru.merkel.examinerservice.services.impl.ConstantsForTests.*;
+import static org.mockito.Mockito.*;
+import static ru.merkel.examinerservice.constants.JavaQuestionsConstants.*;
 
+@ExtendWith(MockitoExtension.class)
 class JavaQuestionServiceTest {
 
-    public QuestionService javaQuestionService = new JavaQuestionService();
-
-    @BeforeEach
-    public void setUp() {
-        javaQuestionService.add(QUESTION_1, ANSWER_1);
-        javaQuestionService.add(QUESTION_2, ANSWER_2);
-        javaQuestionService.add(QUESTION_3, ANSWER_3);
-        javaQuestionService.add(QUESTION_4, ANSWER_4);
-        javaQuestionService.add(QUESTION_5, ANSWER_5);
-        javaQuestionService.add(QUESTION_6, ANSWER_6);
-        javaQuestionService.add(QUESTION_7, ANSWER_7);
-        javaQuestionService.add(QUESTION_8, ANSWER_8);
-    }
+    @Mock
+    public JavaQuestionRepository javaQuestionRepository;
+    @InjectMocks
+    public JavaQuestionService javaQuestionService;
 
     @Test
     void shouldReturnAddedQuestion() {
-        Question expected = new Question(QUESTION_9, ANSWER_9);
-        Question expected2 = new Question("Что такое super?", "Это вызов конструктора класса родителя.");
-        Question actual = javaQuestionService.add(QUESTION_9, ANSWER_9);
-        Question actual2 = javaQuestionService.add(expected2);
-        assertEquals(expected, actual);
-        assertEquals(expected2, actual2);
+        when(javaQuestionRepository.add(JAVA_OBJECT_QUESTION_9)).thenReturn(JAVA_OBJECT_QUESTION_9);
+        when(javaQuestionRepository.add(JAVA_OBJECT_QUESTION_10)).thenReturn(JAVA_OBJECT_QUESTION_10);
+        Question actual = javaQuestionService.add(JAVA_QUESTION_9, JAVA_ANSWER_9);
+        Question actual2 = javaQuestionService.add(JAVA_OBJECT_QUESTION_10);
+        assertEquals(JAVA_OBJECT_QUESTION_9, actual);
+        assertEquals(JAVA_OBJECT_QUESTION_10, actual2);
     }
 
     @Test
     void shouldReturnAlreadyAddedException() {
-        assertThrows(QuestionAlreadyAddedException.class, () -> javaQuestionService.add(QUESTION_1, ANSWER_1));
-        assertThrows(QuestionAlreadyAddedException.class, () -> javaQuestionService.add(OBJECT_QUESTION_1));
+        when(javaQuestionRepository.add(JAVA_OBJECT_QUESTION_1)).thenThrow(QuestionAlreadyAddedException.class);
+        assertThrows(QuestionAlreadyAddedException.class, () -> javaQuestionService.add(JAVA_QUESTION_1, JAVA_ANSWER_1));
+        assertThrows(QuestionAlreadyAddedException.class, () -> javaQuestionService.add(JAVA_OBJECT_QUESTION_1));
     }
 
     @Test
     void shouldReturnRandomQuestion() {
+        when(javaQuestionRepository.getAll()).thenReturn(JAVA_QUESTIONS);
         Question actual = javaQuestionService.getRandomQuestion();
-        assertThat(QUESTIONS, hasItems(actual));
+        assertThat(JAVA_QUESTIONS, hasItems(actual));
     }
 
     @Test
     void shouldThrowNotFoundException() {
-        javaQuestionService.removeAll();
+        when(javaQuestionRepository.getAll()).thenReturn(new HashSet<>());
         assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.getRandomQuestion());
     }
 
     @Test
     void shouldReturnRemovedQuestion() {
-        Question expected = new Question(QUESTION_1, ANSWER_1);
-        Question actual = javaQuestionService.remove(OBJECT_QUESTION_1);
-        assertEquals(expected, actual);
-        assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.remove(OBJECT_QUESTION_1));
+        when(javaQuestionRepository.remove(JAVA_OBJECT_QUESTION_1)).thenReturn(JAVA_OBJECT_QUESTION_1);
+        when(javaQuestionRepository.remove(JAVA_OBJECT_QUESTION_2)).thenThrow(QuestionNotFoundException.class);
+        Question actual = javaQuestionService.remove(JAVA_OBJECT_QUESTION_1);
+        assertEquals(JAVA_OBJECT_QUESTION_1, actual);
+        assertThrows(QuestionNotFoundException.class, () -> javaQuestionService.remove(JAVA_OBJECT_QUESTION_2));
+    }
+
+    @Test
+    void removeAllTest() {
+        javaQuestionService.removeAll();
+        verify(javaQuestionRepository, times(1)).removeAll();
     }
 
     @Test
     void shouldReturnAlQuestions() {
+        when(javaQuestionRepository.getAll()).thenReturn(JAVA_QUESTIONS);
         Collection<Question> actual = javaQuestionService.getAll();
         assertThat(actual, Matchers.containsInAnyOrder(
-                OBJECT_QUESTION_1,
-                OBJECT_QUESTION_2,
-                OBJECT_QUESTION_3,
-                OBJECT_QUESTION_4,
-                OBJECT_QUESTION_5,
-                OBJECT_QUESTION_6,
-                OBJECT_QUESTION_7,
-                OBJECT_QUESTION_8
+                JAVA_OBJECT_QUESTION_1,
+                JAVA_OBJECT_QUESTION_2,
+                JAVA_OBJECT_QUESTION_3,
+                JAVA_OBJECT_QUESTION_4,
+                JAVA_OBJECT_QUESTION_5,
+                JAVA_OBJECT_QUESTION_6,
+                JAVA_OBJECT_QUESTION_7,
+                JAVA_OBJECT_QUESTION_8
         ));
     }
 }
