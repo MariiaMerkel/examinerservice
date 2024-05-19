@@ -46,7 +46,6 @@ public class JavaQuestionRepository implements QuestionRepository {
 
     @Override
     public void removeAll() {
-        System.out.println("Вызван метод JavaQuestionRepository.removeAll(). Список вопросов про Java пуст");
         getQuestions().clear();
     }
 
