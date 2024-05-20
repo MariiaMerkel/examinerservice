@@ -66,7 +66,7 @@ public class JavaQuestionRepository implements QuestionRepository {
         questions.add(JAVA_OBJECT_QUESTION_8);
     }
 
-    public Set<Question> getQuestions() {
+    private Set<Question> getQuestions() {
         return questions;
     }
 }

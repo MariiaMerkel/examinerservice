@@ -1,0 +1,58 @@
+@startuml
+
+class Question {
+    - String question
+    - String answer
+    + String getQuestion()
+    + void setQuestion(String question)
+    + String getAnswer()
+    + void setAnswer(String answer)
+}
+
+interface QuestionRepository {
+    Question add(Question question)
+
+    Question remove(Question question)
+
+    void removeAll()
+
+    Collection<Question> getAll()
+}
+
+class JavaQuestionRepository {
+    - Set<Question> questions
+    + Question add(Question question)
+    + Question remove(Question question)
+    + void removeAll()
+    + Collection<Question> getAll()
+    + Set<Question> getQuestions()
+}
+
+class JavaQuestionService {
+    - Random random = new Random()
+    - QuestionRepository javaQuestionRepository
+    + Question add(String question, String answer)
+    + Question add(Question question)
+    + Question remove(Question question)
+    + Collection<Question> removeAll()
+    + Collection<Question> getAll()
+    + Question getRandomQuestion()
+}
+
+interface QuestionService {
+    Question add(String question, String answer)
+    Question add(Question question)
+    Question remove(Question question)
+    Collection<Question> removeAll()
+    Collection<Question> getAll()
+    Question getRandomQuestion()
+}
+
+JavaQuestionService -[#red]> Question  : A small label
+JavaQuestionService --|> QuestionService
+JavaQuestionService ..|> QuestionRepository
+JavaQuestionRepository -* Question
+JavaQuestionRepository --> QuestionRepository
+
+
+@enduml
